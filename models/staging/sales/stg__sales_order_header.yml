@@ -1,0 +1,119 @@
+version: 2
+
+models:
+  - name: stg__sales_order_header
+    description: "Tabela que armazena informações sobre os cabeçalhos de pedidos de venda."
+    columns:
+      - name: sales_order_id
+        description: "Identificador único do pedido de venda."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: revision_number
+        description: "Número da revisão do pedido."
+        data_tests:
+          - not_null
+
+      - name: order_date
+        description: "Data do pedido."
+        data_tests:
+          - not_null
+
+      - name: due_date
+        description: "Data de vencimento do pedido."
+
+      - name: ship_date
+        description: "Data de envio do pedido."
+
+      - name: Status
+        description: "Status do pedido. 1 = In process; 2 = Approved; 3 = Backordered; 4 = Rejected; 5 = Shipped; 6 = Cancelled"
+
+      - name: oline_order_flag
+        description: "Indica se o pedido foi realizado online. 0 = Order placed by sales person. 1 = Order placed online by customer."
+        data_tests:
+          - not_null
+
+      - name: purchase_order_number
+        description: "Número do pedido de compra."
+
+      - name: account_number
+        description: "Número da conta do cliente."
+
+      - name: customer_id
+        description: "Identificador do cliente associado ao pedido."
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg__customer')
+              field: customer_id
+
+      - name: sales_person_id
+        description: "Identificador do vendedor associado ao pedido."
+        data_tests:
+          - relationships:
+              to: ref('stg__person')
+              field: business_entity_id
+
+      - name: territory_id
+        description: "Identificador do território associado ao pedido."
+
+      - name: bill_to_address_id
+        description: "Identificador do endereço de cobrança."
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg__address')
+              field: address_id
+
+      - name: ship_to_address_id
+        description: "Identificador do endereço de entrega."
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg__address')
+              field: address_id
+
+      - name: ship_method_id
+        description: "Identificador do método de envio."
+        data_tests:
+          - not_null
+
+      - name: credit_card_id
+        description: "Identificador do cartão de crédito utilizado."
+        data_tests:
+          - relationships:
+              to: ref('stg__credit_card')
+              field: credit_card_id
+
+      - name: credit_card_approval_code
+        description: "Código de aprovação do cartão de crédito."
+
+      - name: currency_rate_id
+        description: "Identificador da taxa de câmbio."
+
+      - name: sub_total
+        description: "Subtotal do pedido. Computed as SUM(SalesOrderDetail.LineTotal)for the appropriate SalesOrderID."
+
+      - name: tax_amt
+        description: "Valor do imposto sobre o pedido."
+
+      - name: Freight
+        description: "Custo do frete do pedido."
+
+      - name: total_due
+        description: "Total devido do pedido. Computed as Subtotal + TaxAmt + Freight."
+
+      - name: Comment
+        description: "Comentários adicionais sobre o pedido."
+
+      - name: rowguid
+        description: "Identificador global único do registro."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: modified_date
+        description: "Data da última modificação do registro."
+        data_tests:
+          - not_null

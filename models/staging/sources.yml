@@ -1,0 +1,246 @@
+version: 2
+
+sources:
+
+  - name: raw-data-humanresources
+    schema: humanresources
+    database: meltano_raw
+    tables:
+      - name: employee
+        description: "Tabela de funcionários"
+        columns:
+          - name: businessentityid
+            description: "Identificador único do funcionário."
+            data_tests:
+              - unique
+              - not_null
+
+
+  - name: raw-data-person
+    schema: person
+    database: meltano_raw
+    tables:
+      - name: address
+        description: "Tabela que contém endereços dos clientes."
+        columns:
+          - name: addressid
+            description: "Identificador único do endereço."
+            data_tests:
+              - not_null
+              - unique
+
+      - name: countryregion
+        description: "Tabela de regiões e países."
+        columns:
+          - name: countryregioncode
+            description: "Código único do país ou região."
+            data_tests:
+              - not_null
+              - unique
+
+      - name: person
+        description: "Tabela que contém informações sobre as pessoas."
+        columns:
+          - name: businessentityid
+            description: "Identificador único do negócio associado ao empregado"
+            data_tests:
+              - not_null
+              - unique
+
+
+      - name: stateprovince
+        description: "Tabela que contém as informações sobre estados ou províncias."
+        columns:
+          - name: stateprovinceid
+            description: "Identificador único do estado ou província"
+            data_tests:
+              - not_null
+              - unique
+
+
+  - name: raw-data-production
+    schema: production
+    database: meltano_raw
+    tables:
+      - name: product
+        description: "Tabela de produtos."
+        columns:
+          - name: productid
+            description: "Identificador único do produto."
+            data_tests:
+              - unique
+              - not_null
+
+          - name: safetystocklevel
+            description: "Nível de estoque de segurança do produto"
+            data_tests:
+              - not_null
+              - dbt_utils.expression_is_true:
+                  expression: "> 0"
+
+          - name: reorderpoint
+            description: "Ponto de reabastecimento do produto"
+            data_tests:
+              - not_null
+              - dbt_utils.expression_is_true:
+                  expression: "> 0"
+
+          - name: standardcost
+            description: "Custo padrão do produto"
+            data_tests:
+              - not_null
+              - dbt_utils.expression_is_true:
+                  expression: ">= 0.00"
+
+          - name: listprice
+            description: "Preço de lista do produto"
+            data_tests:
+              - not_null
+              - dbt_utils.expression_is_true:
+                  expression: ">= 0.00"
+
+          - name: weight
+            description: "Peso do produto"
+            data_tests:
+              - dbt_utils.expression_is_true:
+                  expression: "> 0.00"
+
+          - name: daystomanufacture
+            description: "Número de dias para fabricar o produto"
+            data_tests:
+              - not_null
+              - dbt_utils.expression_is_true:
+                  expression: ">= 0"
+
+          - name: sellenddate
+            description: "Data de término da venda do produto"
+            data_tests:
+              - dbt_utils.expression_is_true:
+                  expression: ">= SellStartDate OR SellEndDate IS NULL"
+
+
+  - name: raw-data-sales
+    schema: sales
+    database: meltano_raw
+    tables:
+      - name: creditcard
+        description: "Tabela de cartões de crédito."
+        columns:
+          - name: creditcardid
+            description: "Identificador único do cartão de crédito."
+            data_tests:
+              - unique
+              - not_null
+
+      - name: customer
+        description: "Tabela de clientes."
+        columns:
+          - name: customerid
+            description: "Identificador único do cliente."
+            data_tests:
+              - not_null
+              - unique
+
+      - name: salesorderheadersalesreason
+        description: "Tabela que conecta as razões de venda associadas aos pedidos de venda."
+        data_tests:
+          - unique:
+              column_name: salesorderid || salesreasonid
+
+      - name: salesorderdetail
+        description: "Detalhes dos pedidos de vendas."
+        columns:
+          - name: salesorderdetailid
+            description: "Identificador único do detalhe do pedido de venda"
+            data_tests:
+              - not_null
+              - unique
+
+          - name: orderqty
+            description: "Quantidade do pedido"
+            data_tests:
+              - not_null
+              - dbt_utils.expression_is_true:
+                  expression: "> 0"
+
+          - name: unitprice
+            description: "Preço unitário do produto"
+            data_tests:
+              - not_null
+              - dbt_utils.expression_is_true:
+                  expression: ">= 0.00"
+
+          - name: unitpricediscount
+            description: "Desconto no preço unitário"
+            data_tests:
+              - not_null
+              - dbt_utils.expression_is_true:
+                  expression: ">= 0.00"
+
+      - name: salesorderheader
+        description: "Tabela que armazena informa;'oes sobre pedidos de venda."
+        columns:
+          - name: salesorderid
+            description: "Identificador único do pedido de venda."
+            data_tests:
+              - unique
+              - not_null
+
+          - name: duedate
+            description: "Data de vencimento do pedido."
+            data_tests:
+              - not_null
+              - dbt_utils.expression_is_true:
+                  expression: ">= OrderDate"
+
+          - name: shipdate
+            description: "Data de envio do pedido."
+            data_tests:
+              - dbt_utils.expression_is_true:
+                  expression: ">= OrderDate OR ShipDate IS NULL"
+
+          - name: status
+            description: "Status do pedido (0 a 8)."
+            data_tests:
+              - not_null
+              - accepted_values:
+                  values: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+
+          - name: subtotal
+            description: "Subtotal do pedido."
+            data_tests:
+              - not_null
+              - dbt_utils.expression_is_true:
+                  expression: ">= 0.00"
+
+          - name: taxamt
+            description: "Valor do imposto sobre o pedido."
+            data_tests:
+              - not_null
+              - dbt_utils.expression_is_true:
+                  expression: ">= 0.00"
+
+          - name: freight
+            description: "Custo do frete do pedido."
+            data_tests:
+              - not_null
+              - dbt_utils.expression_is_true:
+                    expression: ">= 0.00"
+
+      - name: salesreason
+        description: "Tabela contendo os motivos de venda."
+        columns:
+          - name: salesreasonid
+            description: "Identificador único do motivo de venda"
+            data_tests:
+              - not_null
+              - unique
+
+      - name: store
+        description: "Tabela que contém informações sobre lojas."
+        columns:
+          - name: businessentityid
+            description: "Identificador único da entidade de negócios"
+            data_tests:
+              - not_null
+              - unique

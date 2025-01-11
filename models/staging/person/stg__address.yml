@@ -1,0 +1,48 @@
+version: 2
+
+models:
+  - name: stg__address
+    description: "Tabela que armazena informações de endereços."
+    columns:
+      - name: address_id
+        description: "Identificador único do endereço."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: address_line_1
+        description: "Primeira linha do endereço."
+        data_tests:
+          - not_null
+
+      - name: address_line_2
+        description: "Segunda linha do endereço (opcional)."
+
+      - name: City
+        description: "Cidade do endereço."
+        data_tests:
+          - not_null
+
+      - name: state_province_id
+        description: "Identificador do estado ou província."
+        data_tests:
+          - not_null
+
+      - name: postal_code
+        description: "Código postal do endereço."
+        data_tests:
+          - not_null
+
+      - name: spatial_location
+        description: "Localização espacial do endereço (opcional)."
+
+      - name: rowguid
+        description: "Identificador global único do registro."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: modified_date
+        description: "Data da última modificação do registro."
+        data_tests:
+          - not_null

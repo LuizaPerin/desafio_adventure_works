@@ -1,0 +1,66 @@
+version: 2
+
+models:
+  - name: stg__person
+    description: "Tabela que armazena informações sobre pessoas, incluindo detalhes de contato e demográficos."
+    columns:
+      - name: business_entity_id
+        description: "Identificador único do negócio associado à pessoa."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: person_type
+        description: " SC = Store Contact, IN = Individual (retail) customer, SP = Sales person, EM = Employee (non-sales), VC = Vendor contact, GC = General contact"
+        data_tests:
+          - accepted_values:
+              values: ['SC', 'VC', 'IN', 'EM', 'SP', 'GC']
+          - not_null
+
+      - name: name_style
+        description: "Indica se a pessoa utiliza um estilo de nome específico."
+        data_tests:
+          - not_null
+
+      - name: Title
+        description: "Título da pessoa (ex: Dr., Sr., Sra.)."
+
+      - name: first_name
+        description: "Primeiro nome da pessoa."
+        data_tests:
+          - not_null
+
+      - name: middle_name
+        description: "Nome do meio da pessoa."
+
+      - name: last_name
+        description: "Sobrenome da pessoa."
+        data_tests:
+          - not_null
+
+      - name: Suffix
+        description: "Sufixo do nome (ex: Jr., III)."
+
+      - name: email_promotion
+        description: "	0 = Contact does not wish to receive e-mail promotions, 1 = Contact does wish to receive e-mail promotions from AdventureWorks, 2 = Contact does wish to receive e-mail promotions from AdventureWorks and selected partners."
+        data_tests:
+          - accepted_values:
+              values: [0, 1, 2]
+          - not_null
+
+      - name: additional_contact_info
+        description: "Informações de contato adicionais em formato XML."
+
+      - name: Demographics
+        description: "Informações demográficas da pessoa em formato XML."
+
+      - name: rowguid
+        description: "Identificador global único do registro."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: modified_date
+        description: "Data da última modificação do registro."
+        data_tests:
+          - not_null

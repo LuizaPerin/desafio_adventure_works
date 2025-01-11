@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: stg__sales_reason
+    description: "Tabela contendo os motivos de venda, incluindo o tipo e nome do motivo."
+    columns:
+      - name: sales_reason_id
+        description: "Identificador único do motivo de venda"
+        data_tests:
+          - not_null
+          - unique
+
+      - name: sales_reason_name
+        description: "Nome do motivo de venda"
+        data_tests:
+          - not_null
+
+      - name: reason_type
+        description: "Tipo do motivo de venda"
+        data_tests:
+          - not_null
+
+      - name: modified_date
+        description: "Data da última modificação do registro"
+        data_tests:
+          - not_null

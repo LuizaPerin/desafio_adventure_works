@@ -1,0 +1,110 @@
+version: 2
+
+models:
+  - name: stg__product
+    description: "Tabela que armazena informações sobre produtos."
+    columns:
+      - name: product_id
+        description: "Identificador único do produto."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: product_name
+        description: "Nome do produto."
+        data_tests:
+          - not_null
+
+      - name: product_number
+        description: "Número do produto."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: make_flag
+        description: "Indica se o produto é fabricado internamente. 0 = Product is purchased, 1 = Product is manufactured in-house."
+        data_tests:
+          - not_null
+
+      - name: fineshed_goods_flag
+        description: "0 = Product is not a salable item. 1 = Product is salable."
+        data_tests:
+          - not_null
+
+      - name: Color
+        description: "Cor do produto."
+
+      - name: safety_stock_level
+        description: "Nível de estoque de segurança do produto."
+
+      - name: reorder_point
+        description: "Ponto de reabastecimento do produto."
+
+      - name: standard_cost
+        description: "Custo padrão do produto."
+
+      - name: list_price
+        description: "Preço de lista do produto."
+        data_tests:
+          - not_null
+
+      - name: product_size
+        description: "Tamanho do produto."
+
+      - name: size_unit_measure_code
+        description: "Código da unidade de medida do tamanho."
+
+      - name: weight_unit_measure_code
+        description: "Código da unidade de medida do peso."
+
+      - name: product_weight
+        description: "Peso do produto."
+
+      - name: days_to_manufacture
+        description: "Número de dias necessários para fabricar o produto."
+
+      - name: product_line
+        description: "Linha do produto.	R = Road, M = Mountain, T = Touring, S = Standard"
+        data_tests:
+          - accepted_values:
+              values: ['S', 'T', 'M', 'R']
+
+      - name: Class
+        description: "Classe do produto. H = High, M = Medium, L = Low"
+        data_tests:
+          - accepted_values:
+              values: ['L', 'M', 'H']
+
+      - name: Style
+        description: "Estilo do produto. W = Womens, M = Mens, U = Universal"
+        data_tests:
+          - accepted_values:
+              values: ['W', 'M', 'U']
+
+      - name: product_subcategory_id
+        description: "Identificador da subcategoria do produto."
+
+      - name: product_model_id
+        description: "Identificador do modelo do produto."
+
+      - name: sell_start_date
+        description: "Data de início da venda do produto."
+        data_tests:
+          - not_null
+
+      - name: sell_end_date
+        description: "Data de término da venda do produto."
+
+      - name: discontinued_date
+        description: "Data em que o produto foi descontinuado."
+
+      - name: rowguid
+        description: "Identificador global único do registro."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: modified_date
+        description: "Data da última modificação do registro."
+        data_tests:
+          - not_null

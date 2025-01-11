@@ -1,0 +1,81 @@
+version: 2
+models:
+  - name: stg__employee
+    description: "Tabela que armazena informações sobre empregados."
+    columns:
+      - name: business_entity_id
+        description: "Identificador único do negócio associado ao empregado."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: national_id_number
+        description: "Número de identificação nacional do empregado."
+        data_tests:
+          - not_null
+
+      - name: login_id
+        description: "Identificador de login do empregado."
+        data_tests:
+          - not_null
+
+      - name: job_title
+        description: "Cargo ou título do empregado."
+        data_tests:
+          - not_null
+
+      - name: birth_date
+        description: "Data de nascimento do empregado."
+        data_tests:
+          - not_null
+
+      - name: marital_status
+        description: "Estado civil do empregado (M para casado, S para solteiro)."
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ['M', 'S']
+
+      - name: Gender
+        description: "Gênero do empregado (M para masculino, F para feminino)."
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ['M', 'F']
+
+      - name: hire_date
+        description: "Data de contratação do empregado."
+        data_tests:
+          - not_null
+
+      - name: salaried_flag
+        description: "Indica se o empregado é assalariado."
+        data_tests:
+          - not_null
+
+      - name: vacation_hours
+        description: "Horas de férias acumuladas pelo empregado."
+        data_tests:
+          - not_null
+
+      - name: sick_leave_hours
+        description: "Horas de licença médica acumuladas pelo empregado."
+        data_tests:
+          - not_null
+
+      - name: current_flag
+        description: "Indica se o empregado está atualmente ativo (0 = Inactive, 1 = Active)"
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+
+      - name: rowguid
+        description: "Identificador global único do registro."
+        data_tests:
+          - not_null
+
+      - name: modified_date
+        description: "Data da última modificação do registro."
+        data_tests:
+          - not_null

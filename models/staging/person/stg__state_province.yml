@@ -1,0 +1,52 @@
+version: 2
+
+models:
+  - name: stg__state_province
+    description: "Tabela que contém as informações sobre estados ou províncias, incluindo dados regionais e de território."
+    columns:
+      - name: state_province_id
+        description: "Identificador único do estado ou província"
+        data_tests:
+          - not_null
+          - unique
+
+      - name: state_province_code
+        description: "Código do estado ou província"
+        data_tests:
+          - not_null
+
+      - name: coutry_region_code
+        description: "Código do país ou região onde o estado ou província está localizado"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg__country_region')
+              field: country_region_code
+
+      - name: is_only_state_province_flag
+        description: "Indicador se é o único estado ou província. 0 = StateProvinceCode exists. 1 = StateProvinceCode unavailable"
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+
+      - name: state_province_name
+        description: "Nome do estado ou província"
+        data_tests:
+          - not_null
+
+      - name: territory_id
+        description: "Identificador do território associado ao estado ou província"
+        data_tests:
+          - not_null
+
+      - name: rowguid
+        description: "Identificador global único do registro."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: modified_date
+        description: "Data da última modificação do registro"
+        data_tests:
+          - not_null

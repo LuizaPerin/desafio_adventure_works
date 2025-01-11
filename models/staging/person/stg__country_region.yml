@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: stg__country_region
+    description: "Tabela que armazena informações sobre regiões e países."
+    columns:
+      - name: country_region_code
+        description: "Código único da região ou país."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: coutry_region_name
+        description: "Nome da região ou país."
+        data_tests:
+          - not_null
+
+      - name: modified_date
+        description: "Data da última modificação do registro."
+        data_tests:
+          - not_null

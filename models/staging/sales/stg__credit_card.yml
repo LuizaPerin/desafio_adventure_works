@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: stg__credit_card
+    description: "Tabela que armazena informações sobre cartões de crédito."
+    columns:
+      - name: credit_card_id
+        description: "Identificador único do cartão de crédito."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: card_type
+        description: "Tipo do cartão de crédito (ex: Visa, MasterCard)."
+        data_tests:
+          - not_null
+
+      - name: modified_date
+        description: "Data da última modificação do registro"
+        data_tests:
+          - not_null
