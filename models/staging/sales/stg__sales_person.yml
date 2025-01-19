@@ -1,0 +1,40 @@
+version: 2
+
+models:
+  - name: stg__sales_person
+    description: "Tabela com informações atuais dos representantes de vendas."
+    columns:
+      - name: business_entity_id
+        description: "Identificador único para cada entidade de negócio associada ao vendedor."
+        tests:
+          - not_null
+          - unique
+
+      - name: territory_id
+        description: "Identificador do território de vendas ao qual o vendedor está associado."
+
+      - name: sales_quota
+        description: "Meta de vendas atribuída ao vendedor durante o período avaliado."
+
+      - name: bonus
+        description: "Bônus recebido pelo vendedor baseado no desempenho."
+
+      - name: commission_pct
+        description: "Percentual de comissão ganho pelo vendedor em suas vendas."
+
+      - name: sales_ytd
+        description: "Vendas realizadas pelo vendedor no ano até a data (Year-to-Date)."
+
+      - name: sales_last_year
+        description: "Vendas realizadas pelo vendedor no ano anterior."
+
+      - name: rowguid
+        description: "Identificador global único do registro."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: modified_date
+        description: "Data da última modificação do registro"
+        data_tests:
+          - not_null

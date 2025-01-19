@@ -244,3 +244,12 @@ sources:
             data_tests:
               - not_null
               - unique
+
+      - name: salesperson
+        description: "Tabela com informações atuais dos representantes de vendas."
+        columns:
+          - name: businessentityid
+            description: "Identificador único para cada entidade de negócio associada ao vendedor."
+            data_tests:
+              - not_null
+              - unique
