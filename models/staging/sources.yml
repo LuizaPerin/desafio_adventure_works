@@ -253,3 +253,12 @@ sources:
             data_tests:
               - not_null
               - unique
+
+      - name: salesterritory
+        description: "Tabela com informações atuais dos representantes de vendas."
+        columns:
+          - name: territoryid
+            description: "Identificador único para cada região"
+            data_tests:
+              - not_null
+              - unique
