@@ -1,0 +1,33 @@
+version: 2
+
+models:
+  - name: dim__motivos_de_venda
+    description: "Modelo que relaciona os motivos de venda com os pedidos de venda. Tabelas de origem: stg__sales_header_sales_reason e stg__sales_reason"
+    columns:
+      - name: sk_sales_reason
+        description: "Identificador único a partir de sales_order_id e sales_reason_id."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: sales_order_id
+        description: "Identificador único do pedido de venda."
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg__sales_order_header')
+              field: sales_order_id
+
+      - name: sales_reason_id
+        description: "Identificador único do motivo da venda."
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg__sales_reason')
+              field: sales_reason_id
+
+      - name: sales_reason_name
+        description: "Nome do motivo da venda."
+
+      - name: reason_type
+        description: "Tipo do motivo da venda."

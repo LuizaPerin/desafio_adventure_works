@@ -1,0 +1,35 @@
+version: 2
+
+models:
+  - name: dim__dates
+    description: "Modelo que gera uma dimensão de datas entre 2011-01-01 e 2014-07-01. Gerada apartir do package dbt_date"
+    columns:
+      - name: date_day
+        description: "A data específica no formato YYYY-MM-DD."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: day_of_month
+        description: "O dia do mês (1-31)."
+
+      - name: day_of_week
+        description: "O número do dia da semana (1-7, onde 1 é domingo)."
+
+      - name: day_of_week_name
+        description: "O nome do dia da semana."
+
+      - name: month_of_year
+        description: "O número do mês (1-12)."
+
+      - name: month_name
+        description: "O nome do mês."
+
+      - name: quarter_of_year
+        description: "O trimestre do ano (1-4)."
+
+      - name: week_of_year
+        description: "O número da semana no ano."
+
+      - name: year_number
+        description: "O ano da data."

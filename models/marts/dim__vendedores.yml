@@ -1,0 +1,43 @@
+version: 2
+
+models:
+  - name: dim__vendedores
+    description: "Consolida informações dos vendedores, combinando dados de funcionários, pessoas e vendas. Fornece uma visão detalhada dos representantes de vendas, incluindo informações pessoais, desempenho e indicadores de vendas."
+    columns:
+      - name: sk_sales_person
+        description: "dentificador único a partir de business_entity_id."
+        tests:
+          - not_null
+          - unique
+
+      - name: business_entity_id
+        description: "Identificador único do vendedor, relacionado ao funcionário na organização."
+        tests:
+          - not_null
+          - unique
+
+      - name: sales_person_name
+        description: "Nome completo do representante de vendas, combinado de 'first_name' e 'last_name' na tabela de pessoas."
+
+      - name: job_title
+        description: "Cargo do representante de vendas na organização. Limitado a 'Sales Representative' neste modelo."
+        tests:
+          - not_null
+
+      - name: current_flag
+        description: "Indicador booleano que mostra se o vendedor está atualmente ativo no cargo."
+
+      - name: sales_quota
+        description: "Meta de vendas atribuída ao vendedor durante o período avaliado."
+
+      - name: bonus
+        description: "Bônus recebido pelo vendedor baseado no desempenho."
+
+      - name: commission_pct
+        description: "Percentual de comissão ganho pelo vendedor em suas vendas."
+
+      - name: sales_ytd
+        description: "Vendas realizadas pelo vendedor no ano até a data (Year-to-Date)."
+
+      - name: sales_last_year
+        description: "Vendas realizadas pelo vendedor no ano anterior."

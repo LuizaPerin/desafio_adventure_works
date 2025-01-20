@@ -1,0 +1,107 @@
+version: 2
+
+models:
+  - name: fct__vendas
+    description: "Modelo que agrega informações sobre vendas, incluindo detalhes do pedido, informações do cliente e motivos de venda."
+    columns:
+      - name: sk_salesline
+        description: "Identificador único a partir de sales_order_id e product_id."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: sales_order_id
+        description: "Identificador do pedido de venda."
+        data_tests:
+          - not_null
+
+      - name: customer_id
+        description: "Identificador do cliente que realizou o pedido."
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim__clientes')
+              field: customer_id
+
+      - name: ship_to_address_id
+        description: "Identificador do endereço de entrega do pedido."
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim__localizacoes')
+              field: address_id
+
+      - name: credit_card_id
+        description: "Identificador do cartão de crédito utilizado para a compra."
+        data_tests:
+          - relationships:
+              to: ref('dim__cartao_de_credito')
+              field: credit_card_id
+
+      - name: product_id
+        description: "Identificador do produto vendido."
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim__produtos')
+              field: product_id
+
+      - name: sales_person_id
+        description: "Identificador do vendedor associado ao pedido."
+        data_tests:
+          - relationships:
+              to: ref('dim__vendedores')
+              field: business_entity_id
+
+      - name: order_date
+        description: "Data em que o pedido foi realizado."
+        data_tests:
+          - not_null
+
+      - name: order_status
+        description: "Status do pedido. 1 = In process; 2 = Approved; 3 = Backordered; 4 = Rejected; 5 = Shipped; 6 = Cancelled"
+
+      - name: order_quantity
+        description: "Quantidade de produtos pedidos."
+        data_tests:
+          - not_null
+
+      - name: unit_price
+        description: "Preço unitário do produto."
+        data_tests:
+          - not_null
+
+      - name: unit_price_discount
+        description: "Desconto aplicado ao preço unitário."
+        data_tests:
+          - not_null
+
+      - name: gross_amount
+        description: "Total bruto do produto calculado como unit_price * order_quantity."
+        data_tests:
+          - not_null
+
+      - name: net_amount
+        description: "Total líquido do produto calculado como unit_price * (1 - unit_price_discount) * order_quantity."
+        data_tests:
+          - not_null
+
+      - name: discount_amount
+        description: "Total de desconto do produto calculado como gross_amount - net_amount."
+        data_tests:
+          - not_null
+
+      - name: sub_total
+        description: "Subtotal do pedido antes de impostos e frete."
+
+      - name: tax_amt
+        description: "Valor total de impostos aplicados ao pedido."
+
+      - name: Freight
+        description: "Custo de frete do pedido."
+
+      - name: total_due
+        description: "Total a pagar pelo cliente após impostos e frete."
+
+      - name: sales_reason_name
+        description: "Motivos de venda associados ao pedido, concatenados em uma string."

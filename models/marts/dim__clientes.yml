@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: dim__clientes
+    description: "Tabela de dimensão clientes. Os clientes podem ser pessoas ou lojas. Tabelas de origem: stg__customer, stg__store, stg__person"
+
+    columns:
+      - name: sk_customer
+        description: "Identificador único a partir de customer_id e person_id."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: customer_id
+        description: "ID único do cliente. Referencia a tabela de clientes."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: person_id
+        description: "ID único da pessoa associada ao cliente. Referencia a tabela de pessoas."
+        data_tests:
+          - relationships:
+              to: ref('stg__person')
+              field: business_entity_id
+
+      - name: customer_name
+        description: "Nome e sobrenome da pessoa associada ao cliente."
+
+      - name: store_id
+        description: "ID da loja onde o cliente está associado. Referencia a tabela de lojas."
+        data_tests:
+          - relationships:
+              to: ref('stg__store')
+              field: business_entity_id
+
+      - name: store_name
+        description: "Nome da loja associada ao cliente."
