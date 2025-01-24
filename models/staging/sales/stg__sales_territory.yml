@@ -1,0 +1,52 @@
+version: 2
+
+models:
+  - name: stg__sales_territory
+    description: "Tabela de territórios de vendas."
+
+    columns:
+      - name: territory_id
+        description: Identificador único do território de vendas.
+        tests:
+          - not_null
+          - unique
+
+      - name: territory_name
+        description: Nome do território de vendas.
+
+      - name: country_region_code
+        description: Código do país ou região associado ao território.
+
+      - name: territory_group
+        description: Grupo de territórios.
+
+      - name: sales_ytd
+        description: Vendas acumuladas no ano até o momento (Year-to-Date).
+        tests:
+          - not_null
+
+      - name: sales_last_year
+        description: Vendas totais do ano anterior.
+        tests:
+          - not_null
+
+      - name: cost_ytd
+        description: Custos acumulados no ano até o momento (Year-to-Date).
+        tests:
+          - not_null
+
+      - name: cost_last_year
+        description: Custos totais do ano anterior.
+        tests:
+          - not_null
+
+      - name: rowguid
+        description: "Identificador global único do registro."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: modified_date
+        description: "Data da última modificação do registro."
+        data_tests:
+          - not_null

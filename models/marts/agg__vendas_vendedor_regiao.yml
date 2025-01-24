@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: agg__vendas_vendedor_regiao
+    description: "Modelo que agrega informações de vendas por região e por vendedor."
+
+    columns:
+      - name: region_name
+        description: "Nome da região onde as vendas ocorreram."
+        data_tests:
+          - not_null
+
+      - name: sales_person_name
+        description: "Nome completo do vendedor responsável pelas vendas (nome e sobrenome)."
+        data_tests:
+          - not_null
+
+      - name: number_of_sales
+        description: "Número de pedidos processados pelo vendedor na região correspondente."
+        tests:
+          - not_null
+
+      - name: total_sales
+        description: "Valor total das vendas (calculado como a soma do preço unitário multiplicado pela quantidade de itens nos pedidos)."
+        data_tests:
+          - not_null
